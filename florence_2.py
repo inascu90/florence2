@@ -52,33 +52,49 @@ def run_example(task_prompt, text_input=None) :
     image_size=(width,height)#(image.width, image.height)#(1920,1080)
       )
   return parsed_answer
-cam_url="park.mp4"
-cap = cv2.VideoCapture(cam_url)
+cam_url="sea_beach.mp4"
+cam_url_path=f"videos/{cam_url}"
+cap = cv2.VideoCapture(cam_url_path)
 i=0
 start_time=time.time()
-while i<3:
-  end_time=time.time()
-  if (end_time-start_time)>10:
-    start_time=time.time()
-    current_time = datetime.now()
-    ret, frame = cap.read()
-    #task_prompt1 = '<OD>'
-    task_prompt2 = '<MORE_DETAILED_CAPTION>'
+while True:#i<200:
+  #end_time=time.time()
+  ret, frame = cap.read()
+  if ret:
+    if (i%100!=0):
+      i+=1
+      continue
+    else:
     
-    image=frame
-    #results1 = run_example(task_prompt1)#run_example(task_prompt,text_input="A green car parked in front of a yellow building.")
-    results2 = run_example(task_prompt2)
-   
-    #print("The reult of OD is: ",results1)
-    caption=results2['<MORE_DETAILED_CAPTION>']
-    print("The reult of MORE_DETAILED_CAPTION is: ",caption)
-    #save screenshot into file
-    screenshot = frame[:]
-    screenshot_filename = f'images/florence/{cam_url}-{i}-{current_time.strftime("%Y-%m-%d_%I-%M-%p")}.png'
-    txt_flie_name=f'description/{cam_url}-{i}-{current_time.strftime("%Y-%m-%d_%I-%M-%p")}.txt'
-    cv2.imwrite(screenshot_filename, screenshot)
-    # Write the caption to the file
-    with open(txt_flie_name, 'w') as file:
-        file.write(caption)
-    i+=1
     
+    
+      # print("if (end_time-start_time)>5:")
+      start_time=time.time()
+      current_time = datetime.now()
+      
+      #task_prompt1 = '<OD>'
+    
+      task_prompt2 = '<MORE_DETAILED_CAPTION>'
+      
+      image=frame
+      #results1 = run_example(task_prompt1)#run_example(task_prompt,text_input="A green car parked in front of a yellow building.")
+      results2 = run_example(task_prompt2)
+    
+      #print("The reult of OD is: ",results1)
+      caption=results2['<MORE_DETAILED_CAPTION>']
+      print("The reult of MORE_DETAILED_CAPTION is: ",caption)
+      #save screenshot into file
+      screenshot = frame[:]
+      screenshot_filename = f'images/florence/{cam_url}-{i}-{current_time.strftime("%Y-%m-%d_%I-%M-%p")}.png'
+      txt_file_name=f'description/{cam_url}-{i}-{current_time.strftime("%Y-%m-%d_%I-%M-%p")}.txt'
+      cv2.imwrite(screenshot_filename, screenshot)
+      # Write the caption to the file
+      with open(txt_file_name, 'w') as file:
+        file.write(f"{current_time.strftime('%Y-%m-%d_%I-%M-%p')} \n {caption} \n The image url is: {screenshot_filename}")
+
+      i+=1
+      
+    
+  else:
+    print("video ended")
+    break
