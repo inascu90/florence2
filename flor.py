@@ -47,7 +47,7 @@ def run_example(task_prompt, image, text_input=None):
     return parsed_answer
 
 # Define video source
-cam_url = "lifting.mp4"
+cam_url = "lifting1.mp4"
 cam_url_path = f"{cam_url}"
 cap = cv2.VideoCapture(cam_url_path)
 # Ensure directories exist
