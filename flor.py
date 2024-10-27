@@ -47,7 +47,7 @@ def run_example(task_prompt, image, text_input=None):
 
 # Define video source
 cam_url = "lifting.mp4"
-cam_url_path = f"videos/{cam_url}"
+cam_url_path = f"{cam_url}"
 cap = cv2.VideoCapture(cam_url_path)
 #####
 i = 0
