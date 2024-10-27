@@ -7,6 +7,7 @@ Original file is located at
     https://colab.research.google.com/drive/1E1XWTEqYdtHj8DbG2rR10CwlOtrR-rMN
 """
 
+import os
 import time
 import requests
 from PIL import Image
@@ -49,6 +50,9 @@ def run_example(task_prompt, image, text_input=None):
 cam_url = "lifting.mp4"
 cam_url_path = f"{cam_url}"
 cap = cv2.VideoCapture(cam_url_path)
+# Ensure directories exist
+os.makedirs('images/florence', exist_ok=True)
+os.makedirs('description', exist_ok=True)
 #####
 i = 0
 start_time = time.time()
