@@ -11,7 +11,8 @@ torch_dtype = torch.float16 if torch.cuda.is_available() else torch.float32
 model = AutoModelForCausalLM.from_pretrained("microsoft/Florence-2-large", torch_dtype=torch_dtype, trust_remote_code=True).to(device)
 processor = AutoProcessor.from_pretrained("microsoft/Florence-2-large", trust_remote_code=True)
 
-prompt = "<OD>"
+#prompt = "<OD>"
+prompt = '<MORE_DETAILED_CAPTION>'
 
 url = "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/tasks/car.jpg?download=true"
 image = Image.open(requests.get(url, stream=True).raw)
