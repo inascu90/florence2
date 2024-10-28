@@ -60,7 +60,7 @@ start_time = time.time()
 while True:
     ret, frame = cap.read()
     if ret:
-        if 1==2:#i % 100 != 0:
+        if i % 7 != 0:
             i += 1
             continue
         else:
